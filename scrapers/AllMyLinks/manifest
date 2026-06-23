@@ -1,9 +1,0 @@
-id: AllMyLinks
-name: AllMyLinks
-metadata: {}
-version: 877d7d1
-date: "2025-09-20 06:39:24"
-requires: []
-source_repository: https://dogmadragon.github.io/metadata-scrapers/main/index.yml
-files:
-- AllMyLinks.yml

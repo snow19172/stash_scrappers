@@ -1,9 +1,0 @@
-id: ManyVidsClub
-name: ManyVids Club
-metadata: {}
-version: 622231e
-date: "2026-04-15 01:56:32"
-requires: []
-source_repository: https://fansdb.github.io/metadata-scrapers/main/index.yml
-files:
-- ManyVidsClub.yml
