@@ -1,0 +1,16 @@
+name: Fansly (Coomer)
+sceneByURL:
+  - action: script
+    url:
+      - https://fansly.com
+    script:
+      - python
+      - FanslyCoomer.py
+      - scene-by-url
+
+sceneByFragment:
+  action: script
+  script:
+    - python
+    - FanslyCoomer.py
+    - scene-by-fragment

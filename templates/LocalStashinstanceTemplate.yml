@@ -1,0 +1,14 @@
+name: #Local Stash instance name
+performerByName:
+  action: stash
+performerByFragment:
+  action: stash
+sceneByFragment:
+  action: stash
+sceneByName:
+  action: stash
+sceneByQueryFragment:
+  action: stash
+stashServer:
+  apiKey: ""
+  url: #ex. http://192.168.1.*:9999

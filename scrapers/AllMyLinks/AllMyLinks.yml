@@ -1,0 +1,110 @@
+name: AllMyLinks
+performerByURL:
+  - action: scrapeXPath
+    url:
+      - allmylinks.com
+    scraper: performerScraper
+
+xPathScrapers:
+  performerScraper:
+    performer:
+      Name: //span[@class='profile-username profile-page']
+#      Aliases: 
+#        selector: //span[@class='profile-usertag']
+#        postProcess:
+#          - replace:
+#              - regex: '@'
+#                with: ''
+      URLs:
+        selector: //div[@class='link-content']//a/@title
+        postProcess:
+          - replace:
+                # Force https
+              - regex: 'http://'
+                with: 'https://'
+                # Enforce link format
+              - regex: '(?i)^.+tiktok.com/'
+                with: 'https://www.tiktok.com/@'
+              - regex: '(?i)^.+patreon.com/'
+                with: 'https://www.patreon.com/'
+              - regex: '(?i)^.+instagram.com/'
+                with: 'https://www.instagram.com/'
+              - regex: '(?i)^.+youtube.com/'
+                with: 'https://www.youtube.com/'
+              - regex: '(?i)^.+(?:twitch.tv|twitch.com)/'
+                with: 'https://www.twitch.tv/'
+              - regex: '(?i)^.+onlyfans.com/'
+                with: 'https://onlyfans.com/'
+              - regex: '(?i)^.+chaturbate.com/'
+                with: 'https://chaturbate.com/'
+              - regex: '(?i)^.+snapchat.com/'
+                with: 'https://www.snapchat.com/'
+              - regex: '(?i)^.+facebook.com/'
+                with: 'https://www.facebook.com/'
+              - regex: '(?i)^.+reddit.com/'
+                with: 'https://www.reddit.com/'
+              - regex: '(?i)^.+suicidegirls.com/'
+                with: 'https://www.suicidegirls.com/'
+              - regex: '(?i)^.+sextpanther.com/'
+                with: 'https://www.sextpanther.com/'
+              - regex: '(?i)^.+pornhub.com/'
+                with: 'https://www.pornhub.com/'
+              - regex: '(?i)^.+clips4sale.com/'
+                with: 'https://www.clips4sale.com/' 
+              - regex: '(?i)^.+loverfans.com/'
+                with: 'https://loverfans.com/'
+              - regex: '(?i)^.+pocketstars.com/'
+                with: 'https://pocketstars.com/'
+              - regex: '(?i)^.+fetlife.com/'
+                with: 'https://fetlife.com/'
+              - regex: '(?i)^.+justfor.fans/'
+                with: 'https://justfor.fans/'
+              - regex: '(?i)^.+(?:twitter|x).com/'
+                with: 'https://x.com/'
+                # Remove OnlyFans referral links
+              - regex: '(?i)^.+onlyfans.com/\?ref.+'
+                with: ''
+                # Remove Amazon links
+              - regex: '(?i)^.+amazon.com/.+'
+                with: ''
+                # Remove Wistender links
+              - regex: '(?i)^.+wishtender.com/.+'
+                with: ''
+                # Remove Venmo links
+              - regex: '(?i)^.+venmo.com/.+'
+                with: ''
+                # Remove Cashapp links
+              - regex: '(?i)^.+cash.app/.+'
+                with: '' 
+                # Mark ManyVids short URL as invalid
+              - regex: '(?i)(https://[^www]\w+\.manyvids\.com)'
+                with: '-$1'
+                # Mark Fansly short URL as invalid
+              - regex: '(?i)(https://fans.ly/r)'
+                with: '-$1'
+                # Cleanup SuicideGirls referral links
+              - regex: '(?i)(^.+suicidegirls.com(?:.+|))(\/ref.+)'
+                with: '$1'
+                # Convert SuicideGirls member links to model links
+              - regex: '(?i)^.+suicidegirls.com/members/'
+                with: 'https://www.suicidegirls.com/girls/'
+                # Convert Reddit shortened user links to full user links
+              - regex: '(?i)^.+reddit.com/u/'
+                with: 'https://www.reddit.com/user/'
+                # Removes email addresses
+              - regex: '.+[^/]@.+' 
+                with: ''
+                # Remove tracking parameters
+              - regex: '\?igshid.+'
+                with: ''
+                # Remove tracking parameters
+              - regex: '\?utm_source.+'
+                with: ''
+                # Remove trailing slashes
+              - regex: \/+$
+                with: ''
+          - javascript: |
+              if (!value.includes('manyvids.com') && !value.includes('fansly.com')) {
+                return value.toLowerCase();
+              }
+              return value;

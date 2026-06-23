@@ -1,0 +1,9 @@
+id: OnlyFans
+name: OnlyFans scraper
+metadata: {}
+version: c21f8d1
+date: "2023-11-22 19:56:35"
+requires: []
+source_repository: https://scruffynerf.github.io/stashtoolkits/stable/scraperindex.yml
+files:
+- OnlyFans.yml

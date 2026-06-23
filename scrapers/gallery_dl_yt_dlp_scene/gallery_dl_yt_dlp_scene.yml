@@ -1,0 +1,10 @@
+name: gallery_dl_yt_dlp_scene
+# requires: py_common
+
+sceneByFragment:
+    action: script
+    script:
+     - python
+     - gallery_dl_yt_dlp_scene.py
+
+# Last Updated June 23, 2026

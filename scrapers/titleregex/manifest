@@ -1,0 +1,11 @@
+id: titleregex
+name: Title Regex
+metadata: {}
+version: 6515dfd
+date: "2023-10-16 00:48:51"
+requires: []
+source_repository: https://scruffynerf.github.io/stashtoolkits/stable/scraperindex.yml
+files:
+- titleregex_defaults.py
+- titleregex.yml
+- titleregex.py
