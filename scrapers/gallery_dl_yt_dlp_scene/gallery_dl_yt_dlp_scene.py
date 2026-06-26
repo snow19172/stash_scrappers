@@ -64,9 +64,7 @@ def scene_from_json(scene_id):
     Sceneid = yt_json.get("id",)    
 
     if title := yt_json.get("title", yt_json.get("id")):
-        scene["title"] = f"{title}- [{Sceneid}]"
-        log.debug(f"title: '{title}'")
-
+        scene["title"] = f"{title} - [{Sceneid}]"
  
     url=[]
     #if post_shortcode := yt_json.get("post_shortcode"):
@@ -83,18 +81,26 @@ def scene_from_json(scene_id):
     scene["urls"] = url
 
     #Studio is a WIP. Trying to make it more compatible with many sites.            
+    if studio := yt_json.get("user",{}).get("name"):
+        scene["Studio"] = {"name":studio}
+    elif studio := yt_json.get("webpage_url_domain",{}):
+        scene["Studio"] = {"name":studio}
+    elif studio := yt_json.get("extractor",{}):
+        scene["Studio"] = {"name":studio}
     #if studio := yt_json.get("category"):
         # scene["Studio"] = {"category": studio}
     #elif studio := yt_json.get("subcategory"):
         #scene["Studio"] = {"subcategory":studio}
 
-    if casts := yt_json.get("username"):
+    if casts := yt_json.get("uploader"):
+        scene["performers"] = [{"name":casts}]
+    elif casts := yt_json.get("username"):
+        scene["performers"] = [{"name":casts}]
+    elif casts := yt_json.get("channel"):
         scene["performers"] = [{"name":casts}]
     elif casts := yt_json.get("tagged_username"):
         scene["performers"] =casts
     elif casts := yt_json.get("fullname"):
-        scene["performers"] = [{"name":casts}]
-    elif casts := yt_json.get("uploader"):
         scene["performers"] = [{"name":casts}]
     elif casts := yt_json.get("tagged_users"):
         scene["performers"] = casts
@@ -106,11 +112,11 @@ def scene_from_json(scene_id):
         tags.append(category)
     scene["tags"] = [{"name": tag} for tag in tags]
 
-    if date_url := yt_json.get("date_url",):
-        s = datetime.datetime.strptime(date_url, "%Y-%m-%d %H:%M:%S")
+    if date_url := yt_json.get("upload_date",):
+        s = datetime.datetime.strptime(date_url, "%Y%m%d")
         scene["date"] = s.strftime("%Y-%m-%d")
-    elif date_url := yt_json.get("date",):
-        s = datetime.datetime.strptime(date_url, "%Y-%m-%d %H:%M:%S")
+    elif date_url := yt_json.get("upload_date",):
+        s = datetime.datetime.strptime(date_url, "%Y%m%d")
         scene["date"] = s.strftime("%Y-%m-%d")
 
     if details := yt_json.get("description"):
