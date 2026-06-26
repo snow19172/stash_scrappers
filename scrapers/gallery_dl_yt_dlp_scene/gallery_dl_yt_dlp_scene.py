@@ -115,8 +115,8 @@ def scene_from_json(scene_id):
     if date_url := yt_json.get("upload_date",):
         s = datetime.datetime.strptime(date_url, "%Y%m%d")
         scene["date"] = s.strftime("%Y-%m-%d")
-    elif date_url := yt_json.get("upload_date",):
-        s = datetime.datetime.strptime(date_url, "%Y%m%d")
+    elif date_url := yt_json.get("date",):
+        s = datetime.datetime.strptime(date_url, "%Y-%m-%d %H:%M:%S")
         scene["date"] = s.strftime("%Y-%m-%d")
 
     if details := yt_json.get("description"):
